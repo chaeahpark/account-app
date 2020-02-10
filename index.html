@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Save with Me</title>
+  </head>
+
+  <body>
+    <header class="header">
+      <h1 class="header__title title">Save with Me</h1>
+      <div class="user">
+        <div class="login">
+          LOG IN
+        </div>
+        <div class="signup">
+          SIGN UP
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="input">
+        <form class="input__form">
+          <label for="">Category:</label>
+          <select id="category">
+            <option value="income">income</option>
+            <option value="expense">expense</option>
+          </select>
+          <label>Envelop: </label>
+          <input id="envelop" type="text" />
+          <label for="">Amount: </label>
+          <input id="amount" type="number" />
+          <label for="">Date: </label>
+          <input id="date" type="date" />
+          <button class="add">add</button>
+        </form>
+      </div>
+
+      <div class="records">
+        <section class="income">
+          <h2 class="title">INCOMES</h2>
+          <table class="table income__table">
+            <thead>
+              <tr class="tb-row">
+                <th>ENVELOP</th>
+                <th>AMOUNT</th>
+                <th>DATE</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="income-list"></tbody>
+          </table>
+          <div class="total-income">Total: <span id="total-income"></span></div>
+        </section>
+        <section class="expense">
+          <h2 class="title">EXPENSES</h2>
+          <table class="table expense__table">
+            <thead>
+              <tr class="tb-row">
+                <th>ENVELOP</th>
+                <th>AMOUNT</th>
+                <th>DATE</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="expense-list"></tbody>
+          </table>
+          <div class="total-expense">
+            Total: <span id="total-expense"></span>
+          </div>
+        </section>
+      </div>
+      <section class="balance">
+        <h2 class="title">BALANCE</h2>
+        <div id="amountOfBalance">€2680</div>
+      </section>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
