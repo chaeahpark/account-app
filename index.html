@@ -13,7 +13,7 @@
 
   <body>
     <header class="header">
-      <h1 class="header__title title">Save with Me</h1>
+      <h1 class="header__title">Save with Me</h1>
       <div class="user">
         <div class="login">
           LOG IN
@@ -26,18 +26,28 @@
     <div class="container">
       <div class="input">
         <form class="input__form">
-          <label for="">Category:</label>
-          <select id="category">
-            <option value="income">income</option>
-            <option value="expense">expense</option>
-          </select>
-          <label>Envelop: </label>
-          <input id="envelop" type="text" />
-          <label for="">Amount: </label>
-          <input id="amount" type="number" />
-          <label for="">Date: </label>
-          <input id="date" type="date" />
-          <button class="add">add</button>
+          <div class="input__form--item">
+            <label class="form__label" for="">Category:</label>
+            <select class="form__input" id="category">
+              <option value="income">income</option>
+              <option value="expense">expense</option>
+            </select>
+          </div>
+          <div class="input__form--item">
+            <label class="form__label">Envelop: </label>
+            <input class="form__input" id="envelop" type="text" />
+          </div>
+          <div class="input__form--item">
+            <label class="form__label" for="">Amount: </label>
+            <input class="form__input" id="amount" type="number" />
+          </div>
+          <div class="input__form--item">
+            <label class="form__label" for="">Date: </label>
+            <input class="form__input" id="date" type="date" />
+          </div>
+          <div class="input__form--item">
+            <button class="form__btn add">add</button>
+          </div>
         </form>
       </div>
 
@@ -46,37 +56,50 @@
           <h2 class="title">INCOMES</h2>
           <table class="table income__table">
             <thead>
-              <tr class="tb-row">
+              <tr>
                 <th>ENVELOP</th>
                 <th>AMOUNT</th>
                 <th>DATE</th>
-                <th></th>
+                <th>X</th>
               </tr>
             </thead>
             <tbody id="income-list"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" class="emptycell"></td>
+              </tr>
+              <tr>
+                <td colspan="4" id="total-income"></td>
+              </tr>
+            </tfoot>
           </table>
-          <div id="total-income">
-          </div>
-        </div>
+          <!-- <div id="total-income"></div> -->
         </section>
         <section class="expense">
           <h2 class="title">EXPENSES</h2>
           <table class="table expense__table">
             <thead>
-              <tr class="tb-row">
+              <tr>
                 <th>ENVELOP</th>
                 <th>AMOUNT</th>
                 <th>DATE</th>
-                <th></th>
+                <th>X</th>
               </tr>
             </thead>
             <tbody id="expense-list"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" class="emptycell"></td>
+              </tr>
+              <tr>
+                <td colspan="4" id="total-expense"></td>
+              </tr>
+            </tfoot>
           </table>
-          <div id="total-expense">
-            
-          </div>
+          <!-- <div id="total-expense"></div> -->
         </section>
       </div>
+
       <section class="balance">
         <h2 class="title">BALANCE</h2>
         <div id="balanceAmount"></div>

@@ -14,7 +14,7 @@
 // window.onscroll = function() {
 //   addStickyClass();
 // };
-
+// TODO 1. Fix alert box when there is no values in the input field.
 // Income class to create income objects.
 class Income {
   constructor(envelop, amount, date) {
@@ -27,8 +27,8 @@ class Income {
     return (
       "_" +
       Math.random()
-        .toString(36)
-        .substr(2, 9)
+      .toString(36)
+      .substr(2, 9)
     );
   }
 }
@@ -45,8 +45,8 @@ class Expense {
     return (
       "_" +
       Math.random()
-        .toString(36)
-        .substr(2, 9)
+      .toString(36)
+      .substr(2, 9)
     );
   }
 }
@@ -70,9 +70,9 @@ class UI {
     row.id = income.id;
     row.innerHTML = `
     <td>${income.envelop}</td>
-    <td class="income-amount">${income.amount}</td>
+    <td align="right" class="income-amount">€${income.amount}</td>
     <td>${income.date}</td>
-    <td><a class="deleteBtn" href="#">X</a></td>
+    <td align="center"><a class="deleteBtn" href="#">X</a></td>
     `;
     incomeList.appendChild(row);
   }
@@ -89,7 +89,7 @@ class UI {
     const totalIncomeAmount = arr.reduce((acc, income) => {
       return acc + income;
     });
-    totalIncomeList.innerHTML = `<p>Total: € <span id="totalIncomeAmount">${totalIncomeAmount}</span></p>`;
+    totalIncomeList.innerHTML = `Total: € <span id="totalIncomeAmount">${totalIncomeAmount}</span>`;
   }
 
   // Display expense on the list
@@ -108,9 +108,9 @@ class UI {
     row.id = expense.id;
     row.innerHTML = `
       <td>${expense.envelop}</td>
-      <td>${expense.amount}</td>
+      <td align="right">€${expense.amount}</td>
       <td>${expense.date}</td>
-      <td><a class="deleteBtn" href="#">X</a></td>
+      <td align="center"><a class="deleteBtn" href="#">X</a></td>
       `;
     expenseList.appendChild(row);
   }
@@ -127,7 +127,7 @@ class UI {
     const totalExpenseAmount = arr.reduce((acc, expense) => {
       return acc + expense;
     });
-    totalExpenseList.innerHTML = `<p>Total: € <span id="totalExpenseAmount">${totalExpenseAmount}<span></p>`;
+    totalExpenseList.innerHTML = `Total: € <span id="totalExpenseAmount">${totalExpenseAmount}<span>`;
   }
 
   // Display balance on the list.
@@ -141,6 +141,12 @@ class UI {
     const balance = totalIncome - totalExpense;
     const balanceList = document.getElementById("balanceAmount");
     balanceList.innerHTML = `€ <span>${balance}</span>`;
+
+    if (balance >= 0) {
+      document.querySelector("#balanceAmount").style.color = "#05b9f0";
+    } else if (balance < 0) {
+      document.querySelector("#balanceAmount").style.color = "#ff562b"
+    }
   }
 
   // Show an alert message.
@@ -250,6 +256,7 @@ const form = document.querySelector(".input__form");
 const deleteBtn = document.querySelectorAll(".deleteBtn");
 const incomeList = document.querySelector("#income-list");
 const expenseList = document.querySelector("#expense-list");
+
 // When the document is loaded
 document.addEventListener("DOMContentLoaded", () => {
   UI.displayIncome();
@@ -277,15 +284,16 @@ form.addEventListener("submit", e => {
     Store.addIncome(income);
     UI.displayTotalIncome();
     UI.displayBalance();
+    UI.showAlert("The item added.", "success");
   } else if (category === "expense") {
     const expense = new Expense(envelop, amount, date);
     UI.addExpenseToList(expense);
     Store.addExpense(expense);
     UI.displayTotalExpense();
     UI.displayBalance();
+    UI.showAlert("The item added.", "success");
   }
-  // Show the result to a user.
-  UI.showAlert("The item added.", "success");
+
   // Clear input fields
   UI.clearFields();
 });
