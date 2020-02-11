@@ -14,12 +14,8 @@
 // window.onscroll = function() {
 //   addStickyClass();
 // };
-const form = document.querySelector(".input__form");
-const deleteBtn = document.querySelectorAll(".deleteBtn");
-const incomeList = document.querySelector("#income-list");
-const expenseList = document.querySelector("#expense-list");
 
-//Income List
+// Income class to create income objects.
 class Income {
   constructor(envelop, amount, date) {
     this.envelop = envelop;
@@ -37,7 +33,7 @@ class Income {
   }
 }
 
-//Expense List
+// Expense class to create expense objects.
 class Expense {
   constructor(envelop, amount, date) {
     this.envelop = envelop;
@@ -55,14 +51,13 @@ class Expense {
   }
 }
 
-//UI class
+// UI class dealing with UI.
 class UI {
-  // display income list
+  // Display income on the list
   static displayIncome() {
     const incomes = Store.getIncomes();
 
     incomes.forEach(income => {
-      console.log(income);
       UI.addIncomeToList(income);
     });
   }
@@ -70,6 +65,7 @@ class UI {
   static addIncomeToList(income) {
     const incomeList = document.querySelector("#income-list");
     const row = document.createElement("tr");
+
     row.className = "tb-row";
     row.id = income.id;
     row.innerHTML = `
@@ -81,10 +77,10 @@ class UI {
     incomeList.appendChild(row);
   }
 
-  // display total income
+  // Display total income on the list.
   static displayTotalIncome() {
     const incomes = Store.getIncomes();
-    let incomeAmountArr = incomes.map(income => Number(income.amount));
+    const incomeAmountArr = incomes.map(income => Number(income.amount));
     UI.addTotalIncomeToList(incomeAmountArr);
   }
 
@@ -96,7 +92,7 @@ class UI {
     totalIncomeList.innerHTML = `<p>Total: € <span id="totalIncomeAmount">${totalIncomeAmount}</span></p>`;
   }
 
-  // display expense list
+  // Display expense on the list
   static displayExpense() {
     const expenses = Store.getExpense();
 
@@ -105,7 +101,6 @@ class UI {
     });
   }
 
-  //add expense to list
   static addExpenseToList(expense) {
     const expenseList = document.querySelector("#expense-list");
     const row = document.createElement("tr");
@@ -120,10 +115,10 @@ class UI {
     expenseList.appendChild(row);
   }
 
-  //display total expense
+  // Display total expense on the list.
   static displayTotalExpense() {
     const expenses = Store.getExpense();
-    let expenseAmountArr = expenses.map(expense => Number(expense.amount));
+    const expenseAmountArr = expenses.map(expense => Number(expense.amount));
     UI.addTotalExpenseToList(expenseAmountArr);
   }
 
@@ -135,7 +130,7 @@ class UI {
     totalExpenseList.innerHTML = `<p>Total: € <span id="totalExpenseAmount">${totalExpenseAmount}<span></p>`;
   }
 
-  //display balance
+  // Display balance on the list.
   static displayBalance() {
     const totalIncome = Number(
       document.getElementById("totalIncomeAmount").textContent
@@ -148,6 +143,7 @@ class UI {
     balanceList.innerHTML = `€ <span>${balance}</span>`;
   }
 
+  // Show an alert message.
   static showAlert(msg, className) {
     const div = document.createElement("div");
     div.className = `alert alert-${className}`;
@@ -161,6 +157,7 @@ class UI {
     }, 2000);
   }
 
+  // Clear all fields after submit the form.
   static clearFields() {
     document.getElementById("category").value = "";
     document.getElementById("envelop").value = "";
@@ -168,6 +165,7 @@ class UI {
     document.getElementById("date").value = "";
   }
 
+  // Remove the item from the list.
   static deleteItemFromList(elem) {
     if (elem.className === "deleteBtn") {
       elem.parentElement.parentElement.remove();
@@ -175,28 +173,32 @@ class UI {
   }
 }
 
-//Storage class
+// Store class for the local storage.
 class Store {
-  // get income
+  // Get income
   static getIncomes() {
     let incomes;
+    // If there is no income,
+    // set it as an empty array.
     if (localStorage.getItem("incomes") === null) {
       incomes = [];
-    } else {
+    }
+    // If there is any income,
+    // get the value of the key 'incomes'
+    else {
       incomes = JSON.parse(localStorage.getItem("incomes"));
     }
     return incomes;
   }
 
-  // add income
+  // Add income to the local storage
   static addIncome(income) {
     const incomes = Store.getIncomes();
     incomes.push(income);
-
     localStorage.setItem("incomes", JSON.stringify(incomes));
   }
 
-  // remove income
+  // Remove income from the local storage.
   static removeIncome(elem) {
     const incomes = Store.getIncomes();
     incomes.forEach((income, index) => {
@@ -207,25 +209,30 @@ class Store {
     localStorage.setItem("incomes", JSON.stringify(incomes));
   }
 
-  // get expense
+  // Get expense from the local storage.
   static getExpense() {
     let expenses;
+    // If the key 'expenses' is empty,
+    // set it as an empty array.
     if (localStorage.getItem("expenses") === null) {
       expenses = [];
-    } else {
+    }
+    // If the key 'expenses' is not empty,
+    // get the value with the key of 'expenses'
+    else {
       expenses = JSON.parse(localStorage.getItem("expenses"));
     }
     return expenses;
   }
 
-  // add expense
+  // Add expense to the local storage.
   static addExpense(expense) {
     const expenses = Store.getExpense();
     expenses.push(expense);
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }
 
-  // remove expense
+  // Remove expense from the local storage.
   static removeExpense(elem) {
     const expenses = Store.getExpense();
     expenses.forEach((expense, index) => {
@@ -237,7 +244,13 @@ class Store {
   }
 }
 
-//Events
+// Events
+// Global variables for events.
+const form = document.querySelector(".input__form");
+const deleteBtn = document.querySelectorAll(".deleteBtn");
+const incomeList = document.querySelector("#income-list");
+const expenseList = document.querySelector("#expense-list");
+// When the document is loaded
 document.addEventListener("DOMContentLoaded", () => {
   UI.displayIncome();
   UI.displayTotalIncome();
@@ -245,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
   UI.displayTotalExpense();
   UI.displayBalance();
 });
-// When add button is clicked
+// When the 'add' button is clicked
 form.addEventListener("submit", e => {
   e.preventDefault();
   const category = document.getElementById("category").value;
@@ -253,11 +266,10 @@ form.addEventListener("submit", e => {
   const amount = document.getElementById("amount").value;
   const date = document.getElementById("date").value;
 
-  //Validate
+  // Validate the form
   if (category === "" || envelop === "" || amount === "" || date === "") {
     UI.showAlert("Please fill in all fields", "danger");
   }
-
   //Instantiate income and expense
   if (category === "income") {
     const income = new Income(envelop, amount, date);
@@ -272,15 +284,14 @@ form.addEventListener("submit", e => {
     UI.displayTotalExpense();
     UI.displayBalance();
   }
-
+  // Show the result to a user.
   UI.showAlert("The item added.", "success");
-  //clear input fields
+  // Clear input fields
   UI.clearFields();
 });
 
-// When remove button(x) is clicked
+// When the remove button(x) is clicked
 incomeList.addEventListener("click", e => {
-  console.log(e.target);
   UI.deleteItemFromList(e.target);
   Store.removeIncome(e.target);
   UI.displayTotalIncome();
@@ -289,7 +300,6 @@ incomeList.addEventListener("click", e => {
 });
 
 expenseList.addEventListener("click", e => {
-  console.log(e.target);
   UI.deleteItemFromList(e.target);
   Store.removeExpense(e.target);
   UI.displayTotalExpense();
