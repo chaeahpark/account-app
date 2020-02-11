@@ -59,7 +59,7 @@ class Expense {
 class UI {
   // display income list
   static displayIncome() {
-    const incomes = storedIncomeList;
+    const incomes = Store.getIncomes();
 
     incomes.forEach(income => {
       console.log(income);
@@ -82,10 +82,23 @@ class UI {
   }
 
   // display total income
+  static displayTotalIncome() {
+    const incomes = Store.getIncomes();
+    let incomeAmountArr = incomes.map(income => Number(income.amount));
+    UI.addTotalIncomeToList(incomeAmountArr);
+  }
+
+  static addTotalIncomeToList(arr) {
+    const totalIncomeList = document.getElementById("total-income");
+    const totalIncomeAmount = arr.reduce((acc, income) => {
+      return acc + income;
+    });
+    totalIncomeList.innerHTML = `<p>Total: € <span id="totalIncomeAmount">${totalIncomeAmount}</span></p>`;
+  }
 
   // display expense list
   static displayExpense() {
-    const expenses = storedExpenseList;
+    const expenses = Store.getExpense();
 
     expenses.forEach(expense => {
       UI.addExpenseToList(expense);
@@ -105,6 +118,34 @@ class UI {
       <td><a class="deleteBtn" href="#">X</a></td>
       `;
     expenseList.appendChild(row);
+  }
+
+  //display total expense
+  static displayTotalExpense() {
+    const expenses = Store.getExpense();
+    let expenseAmountArr = expenses.map(expense => Number(expense.amount));
+    UI.addTotalExpenseToList(expenseAmountArr);
+  }
+
+  static addTotalExpenseToList(arr) {
+    const totalExpenseList = document.getElementById("total-expense");
+    const totalExpenseAmount = arr.reduce((acc, expense) => {
+      return acc + expense;
+    });
+    totalExpenseList.innerHTML = `<p>Total: € <span id="totalExpenseAmount">${totalExpenseAmount}<span></p>`;
+  }
+
+  //display balance
+  static displayBalance() {
+    const totalIncome = Number(
+      document.getElementById("totalIncomeAmount").textContent
+    );
+    const totalExpense = Number(
+      document.getElementById("totalExpenseAmount").textContent
+    );
+    const balance = totalIncome - totalExpense;
+    const balanceList = document.getElementById("balanceAmount");
+    balanceList.innerHTML = `€ <span>${balance}</span>`;
   }
 
   static showAlert(msg, className) {
@@ -132,10 +173,6 @@ class UI {
       elem.parentElement.parentElement.remove();
     }
   }
-
-  // TODO display total expense
-
-  // display balance
 }
 
 //Storage class
@@ -203,7 +240,10 @@ class Store {
 //Events
 document.addEventListener("DOMContentLoaded", () => {
   UI.displayIncome();
+  UI.displayTotalIncome();
   UI.displayExpense();
+  UI.displayTotalExpense();
+  UI.displayBalance();
 });
 // When add button is clicked
 form.addEventListener("submit", e => {
@@ -223,10 +263,14 @@ form.addEventListener("submit", e => {
     const income = new Income(envelop, amount, date);
     UI.addIncomeToList(income);
     Store.addIncome(income);
+    UI.displayTotalIncome();
+    UI.displayBalance();
   } else if (category === "expense") {
     const expense = new Expense(envelop, amount, date);
     UI.addExpenseToList(expense);
     Store.addExpense(expense);
+    UI.displayTotalExpense();
+    UI.displayBalance();
   }
 
   UI.showAlert("The item added.", "success");
@@ -239,6 +283,8 @@ incomeList.addEventListener("click", e => {
   console.log(e.target);
   UI.deleteItemFromList(e.target);
   Store.removeIncome(e.target);
+  UI.displayTotalIncome();
+  UI.displayBalance();
   UI.showAlert("The item removed.", "success");
 });
 
@@ -246,5 +292,7 @@ expenseList.addEventListener("click", e => {
   console.log(e.target);
   UI.deleteItemFromList(e.target);
   Store.removeExpense(e.target);
+  UI.displayTotalExpense();
+  UI.displayBalance();
   UI.showAlert("The item removed.", "success");
 });
