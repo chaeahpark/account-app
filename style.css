@@ -5,6 +5,7 @@ body {
   padding: 0;
 }
 
+/* HEADER */
 .header {
   background-color: #06ff96;
   height: auto;
@@ -31,38 +32,34 @@ body {
   color: white;
 }
 
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100vw;
-}
-
-/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
-.sticky + .content {
-  padding-top: 60px;
-}
-
+/* MAIN */
 .container {
-  border: 2px solid black;
+  width: 80%;
   height: 100%;
+
+  margin: auto;
+  margin-top: 2rem;
   display: grid;
-  /* grid-template-rows: repeat(auto-fit, minmax(200px, 1fr)); */
   grid-template-rows: repeat(auto-fit, auto);
 }
 
-.alert-danger {
+/** ALERT BOX **/
+.alert-danger,
+.alert-success {
   width: 50%;
+  margin: auto;
+  padding: 1rem;
   color: white;
+}
+.alert-danger {
   background-color: red;
 }
 
 .alert-success {
-  width: 50%;
-  color: white;
   background-color: #80f29f;
 }
 
+/* FORM SECTION */
 .input {
   margin-top: 3rem;
   margin-bottom: 3rem;
@@ -91,17 +88,16 @@ body {
   cursor: pointer;
 }
 
+/* TABLE SECTION */
 .records {
   width: 80%;
   margin: 0 auto;
-  /* border: 2px solid green; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
 /* TABLE COMMON VARIABLES */
-
 .title {
   margin-top: 0;
   text-align: center;
@@ -122,12 +118,10 @@ td {
 }
 
 .income {
-  /* border: 2px solid pink; */
   padding: 1rem 2rem;
 }
 
 .expense {
-  /* border: 2px solid pink; */
   padding: 1rem 2rem;
 }
 
@@ -158,11 +152,11 @@ td {
 }
 
 #total-expense {
-  color: #ff562b;
+  color: black;
 }
 
 #total-income {
-  color: #05b9f0;
+  color: black;
 }
 
 .balance {
@@ -172,16 +166,11 @@ td {
   margin: auto;
   margin-top: 3rem;
   margin-bottom: 3rem;
-  background-color: #06ff96;
-  /* border-top: 1px solid black; */
-  border-radius: 0.5rem;
-  color: white;
-}
 
-/* .balance .title {
-  font-size: 1rem;
-  color: white;
-} */
+  border-top: 1.5px double black;
+
+  color: black;
+}
 
 #balanceAmount {
   text-align: center;

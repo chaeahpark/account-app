@@ -1,20 +1,3 @@
-// const header = document.querySelector(".header"); // Get the navbar
-// const sticky = header.offsetTop; // Get the offset position of the navbar
-
-// // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-// const addStickyClass = () => {
-//   if (window.pageYOffset >= sticky) {
-//     header.classList.add("sticky");
-//   } else {
-//     header.classList.remove("sticky");
-//   }
-// };
-
-// // When the user scrolls the page, execute myFunction
-// window.onscroll = function() {
-//   addStickyClass();
-// };
-// TODO 1. Fix alert box when there is no values in the input field.
 // Income class to create income objects.
 class Income {
   constructor(envelop, amount, date) {
@@ -165,7 +148,7 @@ class UI {
 
   // Clear all fields after submit the form.
   static clearFields() {
-    document.getElementById("category").value = "";
+    document.getElementById("category").firstChild.value = "default";
     document.getElementById("envelop").value = "";
     document.getElementById("amount").value = null;
     document.getElementById("date").value = "";
@@ -278,14 +261,14 @@ form.addEventListener("submit", e => {
     UI.showAlert("Please fill in all fields", "danger");
   }
   //Instantiate income and expense
-  if (category === "income") {
+  else if (category === "income" && envelop && amount && date) {
     const income = new Income(envelop, amount, date);
     UI.addIncomeToList(income);
     Store.addIncome(income);
     UI.displayTotalIncome();
     UI.displayBalance();
     UI.showAlert("The item added.", "success");
-  } else if (category === "expense") {
+  } else if (category === "expense" && envelop && amount && date) {
     const expense = new Expense(envelop, amount, date);
     UI.addExpenseToList(expense);
     Store.addExpense(expense);
