@@ -34,8 +34,6 @@ In addition, `class` has been used to categorize functions (encapsulation) and t
 ![events](./media/event.png)
 
 ##3. Materials
-[Eloquent JavaScript](https://amzn.to/38mKvdl)
-[HTML&CSS](https://amzn.to/2UHC6gN)
 
-##4. Questions?
-parkchaeah331@gmail.com
+- [Eloquent JavaScript](https://amzn.to/38mKvdl)
+- [HTML&CSS](https://amzn.to/2UHC6gN)
