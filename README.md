@@ -38,6 +38,10 @@ In addition, `class` has been used to categorize functions (encapsulation) and t
 - [Eloquent JavaScript](https://amzn.to/38mKvdl)
 - [HTML&CSS](https://amzn.to/2UHC6gN)
 
+## 4. Future work
+
+- Work on Sign UP and Log In functionalities.
+
 ## Questions?
 
 parkchaeah331@gmail.com
