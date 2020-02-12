@@ -23,7 +23,7 @@ I primarily use `class` to define the shape of income and expense objects - whic
 
 In addition, `class` has been used to categorize functions (encapsulation) and to enhance readability. As you can see from the diagram there are UI and Store classes and each class contains functions related with its class name. For instance, UI class has methods dealing with UI on the browser. Whereas the Store class includes methods working with `localStorage`. Those methods are `static` so that they are not included in an instance of the classes.
 
-##2. Code structure
+## 2. Code structure
 
 ### 2.1. classes
 
