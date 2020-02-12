@@ -10,8 +10,8 @@ class Income {
     return (
       "_" +
       Math.random()
-      .toString(36)
-      .substr(2, 9)
+        .toString(36)
+        .substr(2, 9)
     );
   }
 }
@@ -28,8 +28,8 @@ class Expense {
     return (
       "_" +
       Math.random()
-      .toString(36)
-      .substr(2, 9)
+        .toString(36)
+        .substr(2, 9)
     );
   }
 }
@@ -69,10 +69,14 @@ class UI {
 
   static addTotalIncomeToList(arr) {
     const totalIncomeList = document.getElementById("total-income");
-    const totalIncomeAmount = arr.reduce((acc, income) => {
-      return acc + income;
-    });
-    totalIncomeList.innerHTML = `Total: € <span id="totalIncomeAmount">${totalIncomeAmount}</span>`;
+    if (arr.length === 0) {
+      totalIncomeList.innerHTML = `Total: € <span id="totalIncomeAmount">0</span>`;
+    } else if (arr.length > 0) {
+      const totalIncomeAmount = arr.reduce((acc, income) => {
+        acc + income;
+      });
+      totalIncomeList.innerHTML = `Total: € <span id="totalIncomeAmount">${totalIncomeAmount}</span>`;
+    }
   }
 
   // Display expense on the list
@@ -107,10 +111,14 @@ class UI {
 
   static addTotalExpenseToList(arr) {
     const totalExpenseList = document.getElementById("total-expense");
-    const totalExpenseAmount = arr.reduce((acc, expense) => {
-      return acc + expense;
-    });
-    totalExpenseList.innerHTML = `Total: € <span id="totalExpenseAmount">${totalExpenseAmount}<span>`;
+    if (arr.length === 0) {
+      totalExpenseList.innerHTML = `Total: € <span id="totalExpenseAmount">0</span>`;
+    } else if (arr.length > 0) {
+      const totalExpenseAmount = arr.reduce((acc, expense) => {
+        acc + expense;
+      });
+      totalExpenseList.innerHTML = `Total: € <span id="totalExpenseAmount">${totalExpenseAmount}<span>`;
+    }
   }
 
   // Display balance on the list.
@@ -118,9 +126,11 @@ class UI {
     const totalIncome = Number(
       document.getElementById("totalIncomeAmount").textContent
     );
+    console.log(totalIncome);
     const totalExpense = Number(
       document.getElementById("totalExpenseAmount").textContent
     );
+    console.log(totalExpense);
     const balance = totalIncome - totalExpense;
     const balanceList = document.getElementById("balanceAmount");
     balanceList.innerHTML = `€ <span>${balance}</span>`;
@@ -128,7 +138,7 @@ class UI {
     if (balance >= 0) {
       document.querySelector("#balanceAmount").style.color = "#05b9f0";
     } else if (balance < 0) {
-      document.querySelector("#balanceAmount").style.color = "#ff562b"
+      document.querySelector("#balanceAmount").style.color = "#ff562b";
     }
   }
 
